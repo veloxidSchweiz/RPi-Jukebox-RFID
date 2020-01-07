@@ -78,26 +78,41 @@ def def_butHalt():
     logger.debug('Call playerpause')
     check_call(jukebox4kidsPath+"/scripts/playout_controls.sh -c=playerpause", shell=True)
 
-#shut = Button(3, hold_time=2)
-butVol0 = Button(13,pull_up=True)
-butVolU = Button(16,pull_up=True,hold_time=0.3,hold_repeat=True)
-butVolD = Button(19,pull_up=True,hold_time=0.3,hold_repeat=True)
-butNext = Button(26,pull_up=True,hold_time=2.0,hold_repeat=False)
-butPrev = Button(20,pull_up=True,hold_time=2.0,hold_repeat=False)
-butHalt = Button(21,pull_up=True)
 
-#shut.when_held = def_shutdown
-butVol0.when_pressed = def_butVol0
-butVolU.when_pressed = def_butVolU
-#When the Volume Up button was held for more than 0.3 seconds every 0.3 seconds he will call a ra$
-butVolU.when_held = def_butVolU
-butVolD.when_pressed = def_butVolD
-#When the Volume Down button was held for more than 0.3 seconds every 0.3 seconds he will lower t$
-butVolD.when_held = def_butVolD
-butNext.when_pressed = def_butNext
-butNext.when_held = def_contrastup
-butPrev.when_pressed = def_butPrev
-butPrev.when_held = def_contrastdown
-butHalt.when_pressed = def_butHalt
+butShut = None
+butVol0 = None 
+butVolU = None 
+butVolD = None 
+butNext = None 
+butPrev = None 
+butHalt = None 
+#butShut = Button(3, hold_time=2)
+#butVol0 = Button(13,pull_up=True)
+#butVolU = Button(16,pull_up=True,hold_time=0.3,hold_repeat=True)
+#butVolD = Button(19,pull_up=True,hold_time=0.3,hold_repeat=True)
+#butNext = Button(26,pull_up=True,hold_time=2.0,hold_repeat=False)
+#butPrev = Button(20,pull_up=True,hold_time=2.0,hold_repeat=False)
+butHalt = Button(27,pull_up=True)
+
+if butShut:
+    butShut.when_held = def_shutdown
+if butVol0:
+    butVol0.when_pressed = def_butVol0
+if butVolU:
+    butVolU.when_pressed = def_butVolU
+    #When the Volume Up button was held for more than 0.3 seconds every 0.3 seconds he will call a ra$
+    butVolU.when_held = def_butVolU
+if butVolD:
+    butVolD.when_pressed = def_butVolD
+    #When the Volume Down button was held for more than 0.3 seconds every 0.3 seconds he will lower t$
+    butVolD.when_held = def_butVolD
+if butNext:
+    butNext.when_pressed = def_butNext
+    butNext.when_held = def_contrastup
+if butPrev:
+    butPrev.when_pressed = def_butPrev
+    butPrev.when_held = def_contrastdown
+if butHalt:
+    butHalt.when_pressed = def_butHalt
 
 pause()
