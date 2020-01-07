@@ -45,41 +45,64 @@ from rotary_encoder_base import RotaryEncoder as enc
 import os, time, sys
 from signal import pause
 from subprocess import check_call
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def rotaryChangeCWVol(steps):
-   check_call("./scripts/playout_controls.sh -c=volumeup -v="+str(steps), shell=True)
+    logger.debug('Call volume up')
+    check_call("./scripts/playout_controls.sh -c=volumeup -v="+str(steps), shell=True)
 
 def rotaryChangeCCWVol(steps):
-   check_call("./scripts/playout_controls.sh -c=volumedown -v="+str(steps), shell=True)
+    logger.debug('Call volume down')
+    check_call("./scripts/playout_controls.sh -c=volumedown -v="+str(steps), shell=True)
 
 def rotaryChangeCWTrack(steps):
-   check_call("./scripts/playout_controls.sh -c=playernext", shell=True)
+    logger.debug('Call  playernext')
+    check_call("./scripts/playout_controls.sh -c=playernext", shell=True)
 
 def rotaryChangeCCWTrack(steps):
-   check_call("./scripts/playout_controls.sh -c=playerprev", shell=True)
+    logger.debug('Call  playerprev')
+    check_call("./scripts/playout_controls.sh -c=playerprev", shell=True)
 
-APinVol = 6
-BPinVol = 5
+APinVol = 17
+BPinVol = 22
 
 APinTrack = 23
 BPinTrack = 22
 
 GPIO.setmode(GPIO.BCM)
+useRotVol = True
+useRotTrack  = False
 
 if __name__ == "__main__":
+    logger = logging.getLogger()
+    logging.basicConfig(level='DEBUG')
 
-	try:
-		encVol = enc(APinVol, BPinVol, rotaryChangeCWVol, rotaryChangeCCWVol, 0.2)
-		encTrack = enc(APinTrack, BPinTrack, rotaryChangeCWTrack, rotaryChangeCCWTrack, 0.05)
-
-		encVol.start()
-		encTrack.start()
-		pause()
-	except KeyboardInterrupt:
-		encVol.stop()
-		encTrack.stop()
-		GPIO.cleanup()
-		print("\nExiting rotary encoder decoder\n")
-		# exit the application
-		sys.exit(0)
+    try:
+        if useRotVol:
+            logger.info('Starting Rotary Volume Encoder with BCM {},BCM {}'.format(APinVol,BPinVol))
+            encVol = enc(APinVol, BPinVol, rotaryChangeCWVol, rotaryChangeCCWVol, 0.2)
+            encVol.start()
+        else:
+            encVol = None
+        if useRotTrack:
+            logger.info('Starting Rotary Track Encoder with BCM {},BCM {}'.format(APinVol,BPinVol))
+            encTrack = enc(APinTrack, BPinTrack, rotaryChangeCWTrack, rotaryChangeCCWTrack, 0.05)
+            encTrack.start()
+        else:
+            encTrack = None
+        logger.debug('Waiting for interactions')
+        pause()
+    except KeyboardInterrupt:
+        if encVol is not None:
+            logger.debug('Stop Rotary Volume Encoder')
+            encVol.stop()
+        if encTrack is not None:
+            logger.debug('Stop Rotary Track Encoder')
+            encTrack.stop()
+    GPIO.cleanup()
+    logger.info("\nExiting rotary encoder decoder\n")
+    # exit the application
+        #sys.exit(0)
