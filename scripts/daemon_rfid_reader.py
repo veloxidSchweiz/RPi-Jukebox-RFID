@@ -5,7 +5,8 @@ import os, time
 from Reader import Reader
 import logging
 logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
+logging.basicConfig(level='INFO')
+#logger.setLevel(logging.DEBUG)
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -28,6 +29,7 @@ previous_id = ""
 previous_time = time.time()
 
 
+logger.info(f'ready to take actions')
 while True:
         # reading the card id
         # NOTE: it's been reported that KKMOON Reader might need the following line altered.
