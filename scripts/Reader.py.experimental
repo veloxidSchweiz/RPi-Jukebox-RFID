@@ -18,6 +18,7 @@ import pirc522
 
 
 logger = logging.getLogger(__name__)
+logger.setLevel('DEBUG')
 def get_devices():
     devices = [InputDevice(fn) for fn in list_devices()]
     devices.append(NonUsbDevice('MFRC522'))
@@ -58,6 +59,7 @@ class Mfrc522Reader(object):
         # Scan for cards
         self.device.wait_for_tag()
         (error, tag_type) = self.device.request()
+        logger.debug('{} {}'.format(error, tag_type))
 
         if not error:
             logger.info("Card detected.")
