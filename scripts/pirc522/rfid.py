@@ -407,8 +407,9 @@ class RFID(object):
                 self.dev_write(0x0D, 0x87)
                 waiting = not self.irq.wait(0.1)
                 i+=1
-            self.irq.clear()
-            self.init()
+        self.irq.clear()
+        self.init()
+        logger.debug('found tag')
 
     def reset(self):
         authed = False
