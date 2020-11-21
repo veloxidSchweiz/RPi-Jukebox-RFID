@@ -93,9 +93,9 @@ def get_all_devices(config):
 
 if __name__ == "__main__":
 
-    logging.basicConfig(level='INFO')
+    logging.basicConfig(level='DEBUG')
     logger = logging.getLogger()
-    logger.setLevel('INFO')
+    logger.setLevel('DEBUG')
 
     config = configparser.ConfigParser(inline_comment_prefixes=";")
     config_path = os.path.expanduser('/home/pi/RPi-Jukebox-RFID/settings/gpio_settings.ini')
