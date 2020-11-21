@@ -81,12 +81,15 @@ class SimpleButton:
 
         if self.hold_repeat:
             return self.holdAndRepeatHandler(*args)
-        logger.info('{}: executre callback'.format(self.name))
-        return self.when_pressed(*args)
+        logger.info('{}: execute callback'.format(self.name))
+        action = self.when_pressed
+        retval = action(*args)
+        logger.debug('{}: executed action: {} with args={}'.format(self.name, self.when_pressed, args))
+        return retval
 
     @property
     def when_pressed(self):
-        logger.info('{}: action'.format(self.name))
+        logger.info('{}: get action - {}'.format(self.name,  self._action))
         return self._action
 
     @when_pressed.setter
