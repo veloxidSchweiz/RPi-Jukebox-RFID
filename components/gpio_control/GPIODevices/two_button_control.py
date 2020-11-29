@@ -13,7 +13,7 @@ def functionCallTwoButtons(btn1, btn2, functionCall1, functionCall2, functionCal
     def functionCallTwoButtons(*args):
         btn1_pressed = btn1.is_pressed
         btn2_pressed = btn2.is_pressed
-        logger.debug('Btn1 {}, Btn2 {}'.format(btn1_pressed, btn2_pressed))
+        logger.info('Btn1 {}, Btn2 {} - args:{}'.format(btn1_pressed, btn2_pressed,args))
         if btn1_pressed and btn2_pressed:
             logger.debug("Both buttons was pressed")
             if functionCallBothPressed is not None:
@@ -29,8 +29,8 @@ def functionCallTwoButtons(btn1, btn2, functionCall1, functionCall2, functionCal
             logger.debug("Btn2 is pressed, action: functionCall2")
             logger.info('functionCall2')
             return functionCall2(*args)
-        else:
-            logger.debug("No Button Pressed: no action")
+        else
+            logger.debug("No Button Pressed: no action - args:{}".format(args))
             return None
 
     return functionCallTwoButtons
@@ -76,8 +76,8 @@ class TwoButtonControl:
                                                                 )
         self.action = generatedTwoButtonFunctionCall
         logger.info('adding new action')
-        self.btn1.when_pressed = generatedTwoButtonFunctionCall
-        self.btn2.when_pressed = generatedTwoButtonFunctionCall
+        self.btn1.when_pressed = self.callbackFunctionHandler
+        self.btn2.when_pressed = self.callbackFunctionHandler
         self.name = name
 
     def __repr__(self):
@@ -88,6 +88,11 @@ class TwoButtonControl:
             bcmPin2=self.bcmPin2,
             two_btns_action=two_btns_action
         )
+
+
+    def callbackFunctionHandler(self, *args):
+        return self.action(*args)
+
 
 
 if __name__ == "__main__":
