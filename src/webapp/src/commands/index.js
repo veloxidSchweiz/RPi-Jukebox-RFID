@@ -262,6 +262,11 @@ const commands = {
     method: 'sync_change_on_rfid_scan',
     argKeys: ['option']
   },
+
+  getDebugInfo: {
+    _package: 'misc',
+    plugin: 'get_debug_info',
+  },
 };
 
 export default commands;

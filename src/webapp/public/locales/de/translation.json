@@ -274,6 +274,24 @@
     },
     "systemcontrols": {
       "title": "Systemsteuerung"
+    },
+    "debug": {
+      "title": "Debug",
+      "loading-error": "Debug-Informationen konnten nicht geladen werden.",
+      "plugins": {
+        "title": "Plugin-Status",
+        "loaded": "Geladen",
+        "failed": "Fehlgeschlagen",
+        "has-config": "Hat Config",
+        "none": "Keine Plugin-Daten verfügbar."
+      },
+      "callables": {
+        "title": "RPC-Aufrufe (pro Paket)"
+      },
+      "config": {
+        "title": "Konfiguration",
+        "none": "Keine Konfigurationsdaten verfügbar."
+      }
     }
   }
 }

@@ -276,6 +276,24 @@
     },
     "systemcontrols": {
       "title": "System Controls"
+    },
+    "debug": {
+      "title": "Debug",
+      "loading-error": "Could not load debug info.",
+      "plugins": {
+        "title": "Plugin status",
+        "loaded": "Loaded",
+        "failed": "Failed",
+        "has-config": "Has config",
+        "none": "No plugin data available."
+      },
+      "callables": {
+        "title": "RPC callables (per package)"
+      },
+      "config": {
+        "title": "Configuration",
+        "none": "No configuration data available."
+      }
     }
   }
 }

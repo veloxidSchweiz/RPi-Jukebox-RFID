@@ -7,6 +7,7 @@ import SettingsSecondSwipe from './secondswipe';
 import SettingsAudio from './audio/index';
 import SettingsStatus from './status/index';
 import SettingsTimers from './timers/index';
+import SettingsDebug from './debug/index';
 import SystemControls from './systemcontrols';
 
 import { useTheme } from '@mui/material/styles';
@@ -42,6 +43,9 @@ const Settings = () => {
       </Grid>
       <Grid item>
         <SettingsAutoHotspot />
+      </Grid>
+      <Grid item>
+        <SettingsDebug />
       </Grid>
     </Grid>
   );

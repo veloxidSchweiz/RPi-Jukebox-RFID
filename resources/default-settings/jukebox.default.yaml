@@ -3,6 +3,9 @@
 # Sole (!) exception is in playermpd.mpd_conf
 system:
   box_name: Jukebox
+# Show Debug card in Settings (plugin status, config viewer)
+debug:
+  show_menu: false
 modules:
   named:
     # Do not change the order!
