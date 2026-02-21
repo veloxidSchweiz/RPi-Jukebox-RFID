@@ -149,6 +149,7 @@ def get_disk_usage(path='/'):
 # ---------------------------------------------------------------------------
 # Temperature
 # ---------------------------------------------------------------------------
+THERMAL_ZONE_TEMP = '/sys/class/thermal/thermal_zone0/temp'
 timer_temperature: GenericEndlessTimerClass
 
 
@@ -157,7 +158,7 @@ def get_cpu_temperature():
     """Get the CPU temperature with single decimal point
 
     No error handling: this is expected to take place up-level!"""
-    with open('/sys/class/thermal/thermal_zone0/temp') as f:
+    with open(THERMAL_ZONE_TEMP) as f:
         temperature = float(f.readline()) / 1000.0
         temperature = round(temperature, 1)
     return temperature
@@ -174,7 +175,7 @@ def publish_cpu_temperature():
         # into the same problem again
         timer_temperature.cancel()
         # Revoke Temperature from publisher
-        publisher.revoke('host.temperature.cpu')
+        jukebox.publishing.get_publisher().revoke('host.temperature.cpu')
     else:
         # May be called from different threads: get thread-correct publisher instance
         jukebox.publishing.get_publisher().send('host.temperature.cpu', str(temperature))
@@ -320,9 +321,11 @@ def finalize():
     # Note: Since timer_temperature is an instance of a class from a different module,
     # auto-registration would register it with that module. Manually set package to this plugin module
     plugin.register(timer_temperature, name='timer_temperature', package=plugin.loaded_as(__name__))
-    if enabled:
+    if enabled and os.path.isfile(THERMAL_ZONE_TEMP):
         publish_cpu_temperature()
         timer_temperature.start()
+    elif enabled:
+        logger.debug("CPU temperature not available (thermal sysfs not present, e.g. in Docker).")
 
 
 @plugin.atexit
