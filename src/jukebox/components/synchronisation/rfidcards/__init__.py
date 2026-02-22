@@ -308,9 +308,9 @@ class SyncRfidcards:
             _port = self._sync_remote_port
 
             _runresult = subprocess.run(['ssh',
-                                    f"{_user}@{_host}", f"-p {_port}",
-                                    '[', '-f', f"'{path}'", ']'],
-                                shell=False, check=False, capture_output=True, text=True)
+                                        f"{_user}@{_host}", f"-p {_port}",
+                                        '[', '-f', f"'{path}'", ']'],
+                                        shell=False, check=False, capture_output=True, text=True)
 
             _result = _runresult.returncode == 0
 
@@ -326,9 +326,9 @@ class SyncRfidcards:
             _port = self._sync_remote_port
 
             _runresult = subprocess.run(['ssh',
-                                    f"{_user}@{_host}", f"-p {_port}",
-                                    '[', '-d', f"'{path}'", ']'],
-                                shell=False, check=False, capture_output=True, text=True)
+                                        f"{_user}@{_host}", f"-p {_port}",
+                                        '[', '-d', f"'{path}'", ']'],
+                                        shell=False, check=False, capture_output=True, text=True)
 
             _result = _runresult.returncode == 0
 

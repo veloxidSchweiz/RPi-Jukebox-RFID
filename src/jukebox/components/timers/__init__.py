@@ -85,11 +85,9 @@ def finalize():
 
 @plugin.atexit
 def atexit(**ignored_kwargs):
-    global timer_shutdown
+    global timer_shutdown, timer_stop_player, timer_fade_volume
     timer_shutdown.cancel()
-    global timer_stop_player
     timer_stop_player.cancel()
-    global timer_fade_volume
     timer_fade_volume.cancel()
     global timer_idle_shutdown
     timer_idle_shutdown.cancel()

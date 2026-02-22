@@ -578,7 +578,6 @@ pulse_monitor: PulseMonitor
 
 def parse_config() -> List[PulseAudioSinkClass]:
     global pulse_monitor
-
     # We get the current default sink, in case of corrupt configuration
     with pulse_monitor as pulse_inst:
         default_sink_name = pulse_inst.server_info().default_sink_name
